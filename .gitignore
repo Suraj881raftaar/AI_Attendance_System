@@ -1,0 +1,50 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Database files
+*.db
+*.sqlite3
+*.sqlite
+data/*.db
+data/attendance.db
+
+# Secrets & Environment files
+.env
+*.env
+secrets/
+credentials/
+
+# Biometric & Model data (keep local)
+data/face_data/*
+!data/face_data/.gitkeep
+app/ai/models/*
+!app/ai/models/.gitkeep
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Log files
+*.log
+logs/
+
+# Build / Distribution
+dist/
+build/
+*.egg-info/
