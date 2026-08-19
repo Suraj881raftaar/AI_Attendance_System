@@ -11,6 +11,7 @@ from app.database.repository import (
     get_student_by_id,
     get_student_by_student_id,
     list_students,
+    search_students,
     update_student,
     deactivate_student,
     # Users
@@ -46,6 +47,7 @@ __all__ = [
     "get_student_by_id",
     "get_student_by_student_id",
     "list_students",
+    "search_students",
     "update_student",
     "deactivate_student",
     "create_user",

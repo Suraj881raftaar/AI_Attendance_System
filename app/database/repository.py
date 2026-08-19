@@ -95,6 +95,46 @@ def list_students(active_only: bool = True, db_path: Optional[Union[str, Path]] 
         return [dict(row) for row in rows]
 
 
+def search_students(
+    query_str: str,
+    active_only: bool = True,
+    db_path: Optional[Union[str, Path]] = None,
+) -> List[Dict[str, Any]]:
+    """
+    Search students by student_id, name, or roll_number using case-insensitive LIKE queries.
+    
+    :param query_str: Search term string.
+    :param active_only: If True, filter by active status.
+    :param db_path: Optional SQLite database path.
+    :return: List of matching student records.
+    """
+    query_str = (query_str or "").strip()
+    if not query_str:
+        return list_students(active_only=active_only, db_path=db_path)
+
+    pattern = f"%{query_str}%"
+
+    if active_only:
+        sql = """
+            SELECT * FROM students
+            WHERE (student_id LIKE ? OR name LIKE ? OR roll_number LIKE ?)
+              AND status = 'active'
+            ORDER BY name ASC
+        """
+        params = (pattern, pattern, pattern)
+    else:
+        sql = """
+            SELECT * FROM students
+            WHERE student_id LIKE ? OR name LIKE ? OR roll_number LIKE ?
+            ORDER BY name ASC
+        """
+        params = (pattern, pattern, pattern)
+
+    with get_db_connection(db_path) as conn:
+        rows = conn.execute(sql, params).fetchall()
+        return [dict(row) for row in rows]
+
+
 def update_student(
     id_val: int,
     name: Optional[str] = None,

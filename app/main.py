@@ -49,7 +49,7 @@ def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 2 Authentication & User Management Operational.")
+    print("\n[READY] STAGE 3 Student Management Operational.")
     return 0
 
 
