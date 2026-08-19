@@ -15,6 +15,7 @@ from app.config import (
     MODELS_DIR,
     ensure_directories,
 )
+from app.database import initialize_database
 
 
 def print_banner():
@@ -27,22 +28,22 @@ def print_banner():
 
 
 def verify_environment():
-    """Verify application folders and python runtime environment."""
+    """Verify application folders, initialize database, and check python runtime environment."""
     ensure_directories()
+    initialize_database()
     print("[INIT] Base Directory :", BASE_DIR)
     print("[INIT] Database Path  :", DATABASE_PATH)
     print("[INIT] Face Data Path :", FACE_DATA_DIR)
     print("[INIT] Models Path    :", MODELS_DIR)
     print("[INIT] Python Version :", sys.version.split()[0])
-    print("[INIT] Environment setup verified successfully.")
+    print("[INIT] Database initialized successfully.")
 
 
 def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 0 Project Initialization Complete.")
-    print("[INFO] Ready for STAGE 1 (Database & Core Foundation).")
+    print("\n[READY] STAGE 1 Database & Core Foundation Operational.")
     return 0
 
 
