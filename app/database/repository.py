@@ -224,6 +224,42 @@ def get_user_by_username(username: str, db_path: Optional[Union[str, Path]] = No
         return dict(row) if row else None
 
 
+def get_user_by_id(user_id: int, db_path: Optional[Union[str, Path]] = None) -> Optional[Dict[str, Any]]:
+    """Retrieve user by user primary key ID."""
+    query = "SELECT * FROM users WHERE id = ?"
+    with get_db_connection(db_path) as conn:
+        row = conn.execute(query, (user_id,)).fetchone()
+        return dict(row) if row else None
+
+
+def update_user_password(user_id: int, new_password_hash: str, db_path: Optional[Union[str, Path]] = None) -> bool:
+    """Update password hash for a user."""
+    new_password_hash = (new_password_hash or "").strip()
+    if not new_password_hash:
+        raise ValueError("Password hash cannot be empty.")
+    
+    query = "UPDATE users SET password_hash = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?"
+    with get_db_connection(db_path) as conn:
+        cursor = conn.execute(query, (new_password_hash, user_id))
+        return cursor.rowcount > 0
+
+
+def list_users(db_path: Optional[Union[str, Path]] = None) -> List[Dict[str, Any]]:
+    """List all system users."""
+    query = "SELECT id, username, role, status, created_at, updated_at FROM users ORDER BY username ASC"
+    with get_db_connection(db_path) as conn:
+        rows = conn.execute(query).fetchall()
+        return [dict(row) for row in rows]
+
+
+def count_users(db_path: Optional[Union[str, Path]] = None) -> int:
+    """Return total count of registered users."""
+    query = "SELECT COUNT(*) as cnt FROM users"
+    with get_db_connection(db_path) as conn:
+        row = conn.execute(query).fetchone()
+        return row["cnt"] if row else 0
+
+
 def update_user_status(user_id: int, status: str, db_path: Optional[Union[str, Path]] = None) -> bool:
     """Update active/inactive status for a user."""
     status_clean = (status or "").strip().lower()

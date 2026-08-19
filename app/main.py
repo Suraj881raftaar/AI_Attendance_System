@@ -16,6 +16,7 @@ from app.config import (
     ensure_directories,
 )
 from app.database import initialize_database
+from app.auth import is_first_run
 
 
 def print_banner():
@@ -38,12 +39,17 @@ def verify_environment():
     print("[INIT] Python Version :", sys.version.split()[0])
     print("[INIT] Database initialized successfully.")
 
+    if is_first_run():
+        print("[AUTH] Status         : First-Run Mode (No Administrator Exists)")
+    else:
+        print("[AUTH] Status         : User Accounts Configured")
+
 
 def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 1 Database & Core Foundation Operational.")
+    print("\n[READY] STAGE 2 Authentication & User Management Operational.")
     return 0
 
 

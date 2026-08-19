@@ -16,7 +16,11 @@ from app.database.repository import (
     # Users
     create_user,
     get_user_by_username,
+    get_user_by_id,
     update_user_status,
+    update_user_password,
+    list_users,
+    count_users,
     # Attendance
     create_attendance,
     check_duplicate_attendance,
@@ -46,7 +50,11 @@ __all__ = [
     "deactivate_student",
     "create_user",
     "get_user_by_username",
+    "get_user_by_id",
     "update_user_status",
+    "update_user_password",
+    "list_users",
+    "count_users",
     "create_attendance",
     "check_duplicate_attendance",
     "get_attendance_by_student",
