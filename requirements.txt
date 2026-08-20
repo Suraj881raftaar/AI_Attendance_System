@@ -12,3 +12,6 @@ matplotlib>=3.7.0
 
 # Testing
 pytest>=7.4.0
+
+# Packaging
+pyinstaller>=6.0.0
