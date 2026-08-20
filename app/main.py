@@ -66,7 +66,7 @@ def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 10 UI/UX Polish & Presentation Ready.")
+    print("\n[READY] STAGE 11 Testing & System Hardening Operational.")
 
     if (len(sys.argv) > 1 and sys.argv[1] == "--cli-only") or os.environ.get("PYTEST_CURRENT_TEST"):
         return 0
