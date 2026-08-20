@@ -53,7 +53,7 @@ def launch_app():
     from app.ui.login import LoginWindow
     from app.ui.main_window import MainWindow
 
-    def start_main_window():
+    def start_main_window(user_info=None):
         main_win = MainWindow(on_logout=launch_app)
         main_win.mainloop()
 
