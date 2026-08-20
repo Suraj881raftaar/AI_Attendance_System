@@ -28,6 +28,7 @@ from app.database.repository import (
     get_attendance_by_student,
     get_attendance_by_date,
     list_recent_attendance,
+    update_attendance_record,
     # Face Data
     create_or_update_face_data,
     get_face_data_by_student,
@@ -62,6 +63,7 @@ __all__ = [
     "get_attendance_by_student",
     "get_attendance_by_date",
     "list_recent_attendance",
+    "update_attendance_record",
     "create_or_update_face_data",
     "get_face_data_by_student",
     "deactivate_face_data",

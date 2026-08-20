@@ -53,7 +53,7 @@ def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 7 Management Dashboard Operational.")
+    print("\n[READY] STAGE 8 Reports & Management Operational.")
     return 0
 
 

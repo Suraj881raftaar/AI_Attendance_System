@@ -383,6 +383,56 @@ def get_attendance_by_student(
         return [dict(row) for row in rows]
 
 
+def list_recent_attendance(
+    limit: int = 10,
+    db_path: Optional[Union[str, Path]] = None,
+) -> List[Dict[str, Any]]:
+    """Retrieve the N most recent attendance records across all students."""
+    query = "SELECT * FROM attendance ORDER BY attendance_date DESC, attendance_time DESC LIMIT ?"
+    with get_db_connection(db_path) as conn:
+        rows = conn.execute(query, (limit,)).fetchall()
+        return [dict(row) for row in rows]
+
+
+def update_attendance_record(
+    attendance_id: int,
+    status: Optional[str] = None,
+    attendance_time: Optional[str] = None,
+    db_path: Optional[Union[str, Path]] = None,
+) -> Optional[Dict[str, Any]]:
+    """Update an existing attendance record's status or time."""
+    fields = []
+    params = []
+
+    if status is not None:
+        status_clean = status.strip().capitalize()
+        if status_clean not in VALID_ATTENDANCE_STATUSES:
+            raise ValueError(f"Invalid status '{status}'. Must be one of {VALID_ATTENDANCE_STATUSES}.")
+        fields.append("status = ?")
+        params.append(status_clean)
+
+    if attendance_time is not None:
+        time_clean = attendance_time.strip()
+        if not time_clean:
+            raise ValueError("Attendance time cannot be empty.")
+        fields.append("attendance_time = ?")
+        params.append(time_clean)
+
+    if not fields:
+        # Nothing to update, return existing record
+        with get_db_connection(db_path) as conn:
+            row = conn.execute("SELECT * FROM attendance WHERE id = ?", (attendance_id,)).fetchone()
+            return dict(row) if row else None
+
+    params.append(attendance_id)
+    query = f"UPDATE attendance SET {', '.join(fields)} WHERE id = ?"
+
+    with get_db_connection(db_path) as conn:
+        conn.execute(query, params)
+        row = conn.execute("SELECT * FROM attendance WHERE id = ?", (attendance_id,)).fetchone()
+        return dict(row) if row else None
+
+
 def get_attendance_by_date(
     attendance_date: str,
     db_path: Optional[Union[str, Path]] = None,
