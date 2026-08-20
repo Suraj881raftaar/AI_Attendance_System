@@ -9,6 +9,7 @@ from app.ui.registration_view import FaceRegistrationDialog
 from app.ui.attendance import AttendanceViewFrame
 from app.ui.dashboard import DashboardViewFrame
 from app.ui.reports import ReportsViewFrame
+from app.ui.analytics import AnalyticsViewFrame
 
 __all__ = [
     "LoginWindow",
@@ -17,4 +18,5 @@ __all__ = [
     "AttendanceViewFrame",
     "DashboardViewFrame",
     "ReportsViewFrame",
+    "AnalyticsViewFrame",
 ]
