@@ -7,13 +7,12 @@ and computes daily trends, status distributions, monthly trends, and student ris
 from datetime import date, datetime, timedelta
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 from app.auth import get_session
 from app.database import (
     get_db_connection,
     list_students,
-    get_student_by_id,
 )
 from app.reports.service import get_student_attendance_summary
 

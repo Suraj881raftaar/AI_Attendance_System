@@ -6,7 +6,6 @@ and Student Performance Categories using lightweight CPU-first Matplotlib canvas
 
 import logging
 from datetime import date
-from typing import Optional, List, Dict, Any
 
 try:
     import customtkinter as ctk

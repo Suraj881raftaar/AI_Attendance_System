@@ -13,11 +13,9 @@ import numpy as np
 
 from app.config import FACE_MATCH_THRESHOLD, MIN_FACE_SIZE
 from app.database import create_attendance, check_duplicate_attendance, get_student_by_id
-from app.ai.config import get_ai_runtime_status
-from app.ai.detector import YuNetFaceDetector, FaceDetectionResult
+from app.ai.detector import YuNetFaceDetector
 from app.ai.embedder import SFaceRecognizer
 from app.ai.matcher import FaceMatcher, MatchResult
-from app.ai.providers import FrameProvider
 
 logger = logging.getLogger(__name__)
 

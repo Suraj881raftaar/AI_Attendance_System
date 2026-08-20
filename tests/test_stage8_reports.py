@@ -5,7 +5,6 @@ manual correction, CSV file export, OpenPyXL Excel export, and data safety.
 """
 
 import csv
-from datetime import date
 import tempfile
 from pathlib import Path
 import openpyxl
@@ -15,7 +14,6 @@ from app.database import (
     initialize_database,
     create_student,
     create_attendance,
-    get_db_connection,
 )
 from app.auth import get_session
 from app.reports import (

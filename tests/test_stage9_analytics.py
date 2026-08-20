@@ -5,7 +5,7 @@ monthly trends, student performance categorization (>90%, 75-90%, <75%), boundar
 inactive student exclusion, chart renderer figure creation, and security.
 """
 
-from datetime import date, datetime
+from datetime import date
 import tempfile
 from pathlib import Path
 import pytest

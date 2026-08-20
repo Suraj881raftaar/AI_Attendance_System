@@ -10,12 +10,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import cv2
 import numpy as np
 
-from app.config import SAMPLES_PER_STUDENT, MODEL_IDENTIFIER, MIN_FACE_SIZE
+from app.config import MODEL_IDENTIFIER, MIN_FACE_SIZE
 from app.auth import get_session
 from app.database import (
     get_student_by_id,
     create_or_update_face_data,
-    get_face_data_by_student,
     deactivate_face_data,
 )
 from app.ai.detector import YuNetFaceDetector, FaceDetectionResult

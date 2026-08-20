@@ -8,7 +8,6 @@ DOES NOT REQUIRE AN ACTUAL PHONE CONNECTED. MOCKS/FAKES USED FOR NETWORK CAPTURE
 
 from unittest.mock import MagicMock, patch
 import numpy as np
-import pytest
 
 from app.ai.providers.base import FrameProvider
 from app.ai.providers.mobile_test import MobileCameraFrameProvider

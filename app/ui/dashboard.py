@@ -5,7 +5,7 @@ recent attendance activity table, quick action navigation buttons, and auto-refr
 """
 
 import logging
-from datetime import date, datetime
+from datetime import datetime
 from typing import Callable, Optional, Dict, Any, List
 
 try:

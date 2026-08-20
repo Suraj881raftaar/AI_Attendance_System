@@ -4,7 +4,7 @@ Enforces backend RBAC authorization, coordinates multi-criteria searching & filt
 computes student attendance analytics, and handles authorized manual corrections.
 """
 
-from datetime import date, datetime
+from datetime import datetime
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union

@@ -14,7 +14,6 @@ import cv2
 import numpy as np
 import pytest
 
-from app.config import FACE_DETECTION_MODEL_PATH, FACE_RECOGNITION_MODEL_PATH, FACE_MATCH_THRESHOLD
 from app.database import (
     initialize_database,
     create_student,
@@ -23,9 +22,9 @@ from app.database import (
     deactivate_student,
 )
 from app.auth import get_session
-from app.ai.config import AIRuntimeStatus, check_models_exist, get_ai_runtime_status
-from app.ai.providers import FrameProvider, ImageFrameProvider, VideoFrameProvider, CameraFrameProvider
-from app.ai.detector import YuNetFaceDetector, FaceDetectionResult
+from app.ai.config import check_models_exist, get_ai_runtime_status
+from app.ai.providers import ImageFrameProvider, VideoFrameProvider, CameraFrameProvider
+from app.ai.detector import YuNetFaceDetector
 from app.ai.embedder import SFaceRecognizer
 from app.ai.matcher import FaceMatcher, MatchResult
 from app.ai.enrollment import FaceEnrollmentManager

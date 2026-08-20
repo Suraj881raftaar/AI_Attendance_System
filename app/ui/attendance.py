@@ -7,7 +7,7 @@ activity feed log, today's attendance summary counters, and provider controls.
 import logging
 import threading
 import time
-from typing import Optional, List, Dict, Any
+from typing import Optional
 import cv2
 import numpy as np
 

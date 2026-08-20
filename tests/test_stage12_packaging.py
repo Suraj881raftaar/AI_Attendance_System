@@ -7,7 +7,6 @@ runtime directory auto-creation, database initialization hooks, and single-click
 import sys
 import tempfile
 from pathlib import Path
-import pytest
 
 from app.config import (
     BASE_DIR,
