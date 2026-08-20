@@ -213,7 +213,8 @@ class StudentManagementFrame:
         EditStudentDialog(self.parent, id_val, on_saved=self.refresh_student_list)
 
     def _open_enroll_face_dialog(self, id_val: int):
-        EnrollFaceDialog(self.parent, id_val, on_saved=self.refresh_student_list)
+        from app.ui.registration_view import FaceRegistrationDialog
+        FaceRegistrationDialog(self.parent, id_val, on_saved=self.refresh_student_list)
 
 
 class AddStudentDialog(ctk.CTkToplevel):

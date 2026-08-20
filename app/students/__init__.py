@@ -13,6 +13,13 @@ from app.students.service import (
     find_students,
 )
 
+from app.students.registration import (
+    register_student_face,
+    reregister_student_face,
+    deregister_student_face,
+    get_student_registration_status,
+)
+
 __all__ = [
     "validate_student_inputs",
     "add_student",
@@ -21,4 +28,8 @@ __all__ = [
     "get_student_detail",
     "list_all_students",
     "find_students",
+    "register_student_face",
+    "reregister_student_face",
+    "deregister_student_face",
+    "get_student_registration_status",
 ]
