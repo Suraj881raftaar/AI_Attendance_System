@@ -53,7 +53,7 @@ def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 5 Student Face Registration Operational.")
+    print("\n[READY] STAGE 6 AI Attendance Engine Operational.")
     return 0
 
 
