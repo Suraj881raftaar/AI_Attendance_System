@@ -11,7 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 APP_DIR = BASE_DIR / "app"
 DATA_DIR = BASE_DIR / "data"
 ASSETS_DIR = BASE_DIR / "assets"
-MODELS_DIR = APP_DIR / "ai" / "models"
+MODELS_DIR = BASE_DIR / "models"
+FACE_DETECTION_MODEL_DIR = MODELS_DIR / "face_detection"
+FACE_RECOGNITION_MODEL_DIR = MODELS_DIR / "face_recognition"
+FACE_DETECTION_MODEL_PATH = FACE_DETECTION_MODEL_DIR / "face_detection_yunet_2023mar.onnx"
+FACE_RECOGNITION_MODEL_PATH = FACE_RECOGNITION_MODEL_DIR / "face_recognition_sface_2021dec.onnx"
 FACE_DATA_DIR = DATA_DIR / "face_data"
 TESTS_DIR = BASE_DIR / "tests"
 DOCS_DIR = BASE_DIR / "docs"
@@ -23,6 +27,8 @@ DATABASE_PATH = DATA_DIR / "attendance.db"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 FACE_DATA_DIR.mkdir(parents=True, exist_ok=True)
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
+FACE_DETECTION_MODEL_DIR.mkdir(parents=True, exist_ok=True)
+FACE_RECOGNITION_MODEL_DIR.mkdir(parents=True, exist_ok=True)
 ASSETS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Application Information
@@ -39,8 +45,11 @@ COLOR_THEME = "blue"      # "blue", "dark-blue", "green"
 
 # Camera & AI Defaults
 DEFAULT_CAMERA_INDEX = 0
-FACE_MATCH_THRESHOLD = 0.6  # Default confidence threshold for face matching
-SAMPLES_PER_STUDENT = 5     # Number of face samples captured during registration
+FACE_MATCH_THRESHOLD = 0.363  # Stage 4 Cosine Similarity Threshold (0.363)
+SAMPLES_PER_STUDENT = 5       # Number of face samples captured during registration
+MODEL_IDENTIFIER = "opencv_sface_v1"
+EMBEDDING_DIMENSION = 128
+MIN_FACE_SIZE = (60, 60)
 
 def get_db_path() -> Path:
     """Return SQLite database path."""

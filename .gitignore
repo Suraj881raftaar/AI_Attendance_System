@@ -28,6 +28,8 @@ data/face_data/*
 !data/face_data/.gitkeep
 app/ai/models/*
 !app/ai/models/.gitkeep
+models/*
+!models/**/.gitkeep
 
 # IDE and Editor files
 .vscode/

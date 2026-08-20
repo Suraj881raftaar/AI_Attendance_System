@@ -44,12 +44,16 @@ def verify_environment():
     else:
         print("[AUTH] Status         : User Accounts Configured")
 
+    from app.ai.config import get_ai_runtime_status
+    ai_status = get_ai_runtime_status()
+    print(f"[AI] Model Status     : {ai_status['status']} ({ai_status['message']})")
+
 
 def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 3 Student Management Operational.")
+    print("\n[READY] STAGE 4 Offline AI Implementation Operational.")
     return 0
 
 

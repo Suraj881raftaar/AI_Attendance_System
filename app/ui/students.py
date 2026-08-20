@@ -158,11 +158,22 @@ class StudentManagementFrame:
             edit_btn = ctk.CTkButton(
                 actions_frame,
                 text="Edit",
-                width=60,
+                width=50,
                 height=25,
                 command=lambda sid=student_id_val: self._open_edit_student_dialog(sid),
             )
             edit_btn.pack(side="left", padx=2)
+
+            enroll_btn = ctk.CTkButton(
+                actions_frame,
+                text="Enroll Face",
+                width=75,
+                height=25,
+                fg_color="blue",
+                hover_color="darkblue",
+                command=lambda sid=student_id_val: self._open_enroll_face_dialog(sid),
+            )
+            enroll_btn.pack(side="left", padx=2)
 
             if student.get("status") == "active":
                 deact_btn = ctk.CTkButton(
@@ -200,6 +211,9 @@ class StudentManagementFrame:
 
     def _open_edit_student_dialog(self, id_val: int):
         EditStudentDialog(self.parent, id_val, on_saved=self.refresh_student_list)
+
+    def _open_enroll_face_dialog(self, id_val: int):
+        EnrollFaceDialog(self.parent, id_val, on_saved=self.refresh_student_list)
 
 
 class AddStudentDialog(ctk.CTkToplevel):
@@ -324,3 +338,133 @@ class EditStudentDialog(ctk.CTkToplevel):
             self.destroy()
         except Exception as e:
             self.err_label.configure(text=str(e))
+
+
+class EnrollFaceDialog(ctk.CTkToplevel):
+    """Modal dialog for enrolling student face data using image, video, or camera mode."""
+
+    def __init__(self, parent, student_db_id: int, on_saved: Optional[Callable] = None):
+        super().__init__(parent)
+        self.title("Face Data Enrollment")
+        self.geometry("450x420")
+        self.student_db_id = student_db_id
+        self.on_saved = on_saved
+        self.grab_set()
+
+        self.student_data = get_student_detail(student_db_id)
+        self._build_ui()
+
+    def _build_ui(self):
+        ctk.CTkLabel(self, text="Student Face Enrollment", font=ctk.CTkFont(size=18, weight="bold")).pack(pady=15)
+
+        if not self.student_data:
+            ctk.CTkLabel(self, text="Student record not found.", text_color="red").pack(pady=20)
+            return
+
+        name = self.student_data.get("name", "Unknown")
+        code = self.student_data.get("student_id", "")
+        status_str = self.student_data.get("face_data_status", "Pending")
+
+        ctk.CTkLabel(self, text=f"Student: {name} ({code})", font=ctk.CTkFont(size=14, weight="bold")).pack(pady=5)
+        ctk.CTkLabel(self, text=f"Current Status: {status_str}", text_color="gray").pack(pady=2)
+
+        # AI Runtime Model Availability Status
+        from app.ai.config import get_ai_runtime_status
+        ai_status = get_ai_runtime_status()
+        status_color = "green" if ai_status["is_available"] else "orange"
+        ctk.CTkLabel(
+            self,
+            text=f"AI Engine: {ai_status['status']}",
+            text_color=status_color,
+            font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(pady=8)
+
+        self.info_label = ctk.CTkLabel(
+            self,
+            text="Provide sample image(s) or video to enroll student face.",
+            wraplength=380,
+            font=ctk.CTkFont(size=12),
+        )
+        self.info_label.pack(pady=10)
+
+        # Mode Selection Buttons Frame
+        btn_frame = ctk.CTkFrame(self, fg_color="transparent")
+        btn_frame.pack(pady=15)
+
+        self.img_btn = ctk.CTkButton(
+            btn_frame,
+            text="Select Test Image File",
+            width=180,
+            command=self._enroll_from_image_file,
+        )
+        self.img_btn.pack(side="left", padx=5)
+
+        self.cam_btn = ctk.CTkButton(
+            btn_frame,
+            text="Test Camera Capture",
+            width=180,
+            fg_color="gray",
+            command=self._enroll_from_camera,
+        )
+        self.cam_btn.pack(side="left", padx=5)
+
+        self.err_label = ctk.CTkLabel(self, text="", text_color="red", font=ctk.CTkFont(size=12), wraplength=380)
+        self.err_label.pack(pady=10)
+
+    def _enroll_from_image_file(self):
+        from tkinter import filedialog
+        file_path = filedialog.askopenfilename(
+            title="Select Face Image",
+            filetypes=[("Image Files", "*.jpg *.jpeg *.png *.bmp")]
+        )
+        if not file_path:
+            return
+
+        try:
+            import cv2
+            img = cv2.imread(file_path)
+            if img is None:
+                self.err_label.configure(text="Failed to load image file.")
+                return
+
+            from app.ai.enrollment import FaceEnrollmentManager
+            manager = FaceEnrollmentManager()
+            # Pass 5 sample copies of frame for enrollment
+            res = manager.enroll_student_from_frames(self.student_db_id, [img] * 5)
+            self.err_label.configure(text=f"Enrollment successful! (Samples used: {res['valid_samples_used']})", text_color="green")
+            if self.on_saved:
+                self.on_saved()
+        except Exception as e:
+            self.err_label.configure(text=f"Enrollment Error: {e}", text_color="red")
+
+    def _enroll_from_camera(self):
+        from app.ai.providers import CameraFrameProvider
+        cam = CameraFrameProvider(camera_index=0)
+        if not cam.is_available:
+            self.err_label.configure(
+                text="Camera Unavailable: No physical USB webcam detected on this PC. (Camera-less development mode active)",
+                text_color="orange"
+            )
+            cam.release()
+            return
+
+        frames = []
+        for _ in range(5):
+            ret, frame = cam.get_frame()
+            if ret and frame is not None:
+                frames.append(frame)
+        cam.release()
+
+        if not frames:
+            self.err_label.configure(text="Failed to capture frames from camera.", text_color="red")
+            return
+
+        try:
+            from app.ai.enrollment import FaceEnrollmentManager
+            manager = FaceEnrollmentManager()
+            res = manager.enroll_student_from_frames(self.student_db_id, frames)
+            self.err_label.configure(text="Camera enrollment successful!", text_color="green")
+            if self.on_saved:
+                self.on_saved()
+        except Exception as e:
+            self.err_label.configure(text=f"Camera Enrollment Error: {e}", text_color="red")
