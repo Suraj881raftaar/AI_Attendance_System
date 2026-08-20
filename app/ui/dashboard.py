@@ -57,7 +57,7 @@ class DashboardViewFrame(ctk.CTkFrame):
         ctk.CTkLabel(
             title_box,
             text="Management Dashboard",
-            font=ctk.CTkFont(size=22, weight="bold"),
+            font=("Roboto", 22, "bold"),
         ).pack(side="left")
 
         # AI Status Badge
@@ -66,7 +66,7 @@ class DashboardViewFrame(ctk.CTkFrame):
         ctk.CTkLabel(
             title_box,
             text=f"AI Engine: {ai_status['status']}",
-            font=ctk.CTkFont(size=12, weight="bold"),
+            font=("Roboto", 12, "bold"),
             text_color=ai_color,
         ).pack(side="right")
 
@@ -100,13 +100,13 @@ class DashboardViewFrame(ctk.CTkFrame):
         ctk.CTkLabel(
             act_header,
             text="Recent Attendance Activity",
-            font=ctk.CTkFont(size=16, weight="bold"),
+            font=("Roboto", 16, "bold"),
         ).pack(side="left")
 
         self.last_updated_label = ctk.CTkLabel(
             act_header,
             text="Last Updated: Just now",
-            font=ctk.CTkFont(size=11),
+            font=("Roboto", 11),
             text_color="gray",
         )
         self.last_updated_label.pack(side="right")
@@ -128,13 +128,13 @@ class DashboardViewFrame(ctk.CTkFrame):
         ctk.CTkLabel(
             actions_box,
             text="Quick Actions",
-            font=ctk.CTkFont(size=14, weight="bold"),
+            font=("Roboto", 14, "bold"),
         ).pack(anchor="w", padx=10, pady=(8, 6))
 
         self.cam_action_btn = ctk.CTkButton(
             actions_box,
             text="Start Attendance Camera",
-            font=ctk.CTkFont(weight="bold"),
+            font=("Roboto", 13, "bold"),
             fg_color="green",
             hover_color="darkgreen",
             command=self._handle_navigate_attendance,
@@ -144,7 +144,7 @@ class DashboardViewFrame(ctk.CTkFrame):
         self.stu_action_btn = ctk.CTkButton(
             actions_box,
             text="Add New Student",
-            font=ctk.CTkFont(weight="bold"),
+            font=("Roboto", 13, "bold"),
             command=self._handle_navigate_students,
         )
         self.stu_action_btn.pack(fill="x", padx=10, pady=5)
@@ -162,13 +162,13 @@ class DashboardViewFrame(ctk.CTkFrame):
         ctk.CTkLabel(
             card,
             text=title,
-            font=ctk.CTkFont(size=11, weight="bold"),
+            font=("Roboto", 11, "bold"),
             text_color="gray",
         ).pack(pady=(8, 0))
         val_lbl = ctk.CTkLabel(
             card,
             text=initial_val,
-            font=ctk.CTkFont(size=22, weight="bold"),
+            font=("Roboto", 22, "bold"),
         )
         val_lbl.pack(pady=(0, 8))
         card.value_label = val_lbl  # type: ignore

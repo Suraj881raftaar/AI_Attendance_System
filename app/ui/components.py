@@ -64,7 +64,7 @@ class ConfirmationDialog(ctk.CTkToplevel):
         ctk.CTkLabel(
             self,
             text=message,
-            font=ctk.CTkFont(size=13),
+            font=("Roboto", 13),
             wraplength=340,
         ).pack(expand=True, padx=20, pady=(20, 10))
 

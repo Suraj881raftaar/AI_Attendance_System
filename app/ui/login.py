@@ -102,36 +102,44 @@ class LoginFrame:
         username = self.username_entry.get()
         password = self.password_entry.get()
 
-        self.status_label.configure(text="", text_color="red")
+        if self.frame.winfo_exists():
+            self.status_label.configure(text="", text_color="red")
 
         try:
             user = login(username, password)
-            self.status_label.configure(text="Login successful!", text_color="green")
+            if self.frame.winfo_exists():
+                self.status_label.configure(text="Login successful!", text_color="green")
             if self.on_login_success:
                 self.on_login_success(user)
         except ValueError as e:
-            self.status_label.configure(text=str(e), text_color="red")
+            if self.frame.winfo_exists():
+                self.status_label.configure(text=str(e), text_color="red")
         except Exception as e:
             logger.error(f"Unexpected login error: {e}")
-            self.status_label.configure(text="An unexpected error occurred. Please try again.", text_color="red")
+            if self.frame.winfo_exists():
+                self.status_label.configure(text="An unexpected error occurred. Please try again.", text_color="red")
 
     def _handle_first_run_setup(self):
         username = self.username_entry.get()
         password = self.password_entry.get()
 
-        self.status_label.configure(text="", text_color="red")
+        if self.frame.winfo_exists():
+            self.status_label.configure(text="", text_color="red")
 
         try:
             setup_first_admin(username, password)
             user = login(username, password)
-            self.status_label.configure(text="Admin created & logged in!", text_color="green")
+            if self.frame.winfo_exists():
+                self.status_label.configure(text="Admin created & logged in!", text_color="green")
             if self.on_login_success:
                 self.on_login_success(user)
         except ValueError as e:
-            self.status_label.configure(text=str(e), text_color="red")
+            if self.frame.winfo_exists():
+                self.status_label.configure(text=str(e), text_color="red")
         except Exception as e:
             logger.error(f"Unexpected setup error: {e}")
-            self.status_label.configure(text="An unexpected error occurred.", text_color="red")
+            if self.frame.winfo_exists():
+                self.status_label.configure(text="An unexpected error occurred.", text_color="red")
 
 
 class LoginWindow(ctk.CTk):
@@ -156,5 +164,6 @@ class LoginWindow(ctk.CTk):
     def _handle_success(self, user_info=None):
         if self.on_login_success:
             self.on_login_success(user_info)
-        self.destroy()
+        if self.winfo_exists():
+            self.destroy()
 
