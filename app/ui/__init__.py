@@ -10,6 +10,8 @@ from app.ui.attendance import AttendanceViewFrame
 from app.ui.dashboard import DashboardViewFrame
 from app.ui.reports import ReportsViewFrame
 from app.ui.analytics import AnalyticsViewFrame
+from app.ui.main_window import MainWindow
+from app.ui.components import ConfirmationDialog, EmptyStateWidget
 
 __all__ = [
     "LoginWindow",
@@ -19,4 +21,7 @@ __all__ = [
     "DashboardViewFrame",
     "ReportsViewFrame",
     "AnalyticsViewFrame",
+    "MainWindow",
+    "ConfirmationDialog",
+    "EmptyStateWidget",
 ]

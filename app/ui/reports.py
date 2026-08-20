@@ -6,7 +6,7 @@ student attendance percentage analytics, and CSV/Excel export buttons.
 
 import logging
 from datetime import date
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Callable
 
 try:
     import customtkinter as ctk

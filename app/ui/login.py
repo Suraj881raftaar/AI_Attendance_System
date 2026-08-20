@@ -132,3 +132,29 @@ class LoginFrame:
         except Exception as e:
             logger.error(f"Unexpected setup error: {e}")
             self.status_label.configure(text="An unexpected error occurred.", text_color="red")
+
+
+class LoginWindow(ctk.CTk):
+    """Top-level CustomTkinter Window for User Login."""
+
+    def __init__(self, on_login_success: Optional[Callable] = None):
+        if not HAS_GUI:
+            raise RuntimeError("CustomTkinter UI framework is not available.")
+
+        super().__init__()
+        self.title("AI Attendance System — Authentication")
+        self.geometry("500x420")
+        self.resizable(False, False)
+
+        self.on_login_success = on_login_success
+
+        ctk.set_appearance_mode("Dark")
+        ctk.set_default_color_theme("dark-blue")
+
+        self.login_frame = LoginFrame(self, on_login_success=self._handle_success)
+
+    def _handle_success(self, user_info=None):
+        if self.on_login_success:
+            self.on_login_success(user_info)
+        self.destroy()
+

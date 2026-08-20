@@ -49,11 +49,29 @@ def verify_environment():
     print(f"[AI] Model Status     : {ai_status['status']} ({ai_status['message']})")
 
 
+def launch_app():
+    """Launch the GUI application (Login -> MainWindow)."""
+    from app.ui.login import LoginWindow
+    from app.ui.main_window import MainWindow
+
+    def start_main_window():
+        main_win = MainWindow(on_logout=launch_app)
+        main_win.mainloop()
+
+    login = LoginWindow(on_login_success=start_main_window)
+    login.mainloop()
+
+
 def main():
     """Main application launcher."""
     print_banner()
     verify_environment()
-    print("\n[READY] STAGE 9 Visual Analytics Operational.")
+    print("\n[READY] STAGE 10 UI/UX Polish & Presentation Ready.")
+
+    if (len(sys.argv) > 1 and sys.argv[1] == "--cli-only") or os.environ.get("PYTEST_CURRENT_TEST"):
+        return 0
+
+    launch_app()
     return 0
 
 

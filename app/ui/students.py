@@ -24,16 +24,16 @@ from app.students import (
 logger = logging.getLogger(__name__)
 
 
-class StudentManagementFrame:
+class StudentManagementFrame(ctk.CTkFrame):
     """CustomTkinter Student Management View Frame."""
 
     def __init__(self, parent_container):
         if not HAS_GUI:
             raise RuntimeError("CustomTkinter UI framework is not available.")
 
+        super().__init__(parent_container)
         self.parent = parent_container
-        self.frame = ctk.CTkFrame(self.parent)
-        self.frame.pack(expand=True, fill="both", padx=15, pady=15)
+        self.frame = self  # Alias for backward compatibility
 
         self.active_filter = True
         self._build_ui()
@@ -200,6 +200,20 @@ class StudentManagementFrame:
         self.refresh_student_list()
 
     def _handle_deactivate(self, id_val: int):
+        from app.ui.components import ConfirmationDialog
+        st = get_student_detail(id_val)
+        sname = st.get("name", "Student") if st else "Student"
+
+        ConfirmationDialog(
+            parent=self.winfo_toplevel(),
+            title="Deactivate Student",
+            message=f"Are you sure you want to deactivate student '{sname}'? Historical attendance logs will be preserved.",
+            confirm_text="Deactivate",
+            confirm_color="red",
+            on_confirm=lambda: self._do_deactivate(id_val),
+        )
+
+    def _do_deactivate(self, id_val: int):
         try:
             deactivate_student_record(id_val)
             self.refresh_student_list()
