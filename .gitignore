@@ -34,6 +34,7 @@ models/*
 # IDE and Editor files
 .vscode/
 .idea/
+pyrightconfig.json
 *.swp
 *.swo
 
