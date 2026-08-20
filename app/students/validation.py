@@ -3,7 +3,7 @@ Input validation utilities for Student Management module.
 Ensures data integrity and friendly error messages prior to database entry.
 """
 
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 
 def validate_student_inputs(

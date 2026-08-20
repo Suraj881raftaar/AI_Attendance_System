@@ -5,7 +5,6 @@ Provides validated, parameterized data access functions for Students, Users, Att
 
 import sqlite3
 import logging
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 

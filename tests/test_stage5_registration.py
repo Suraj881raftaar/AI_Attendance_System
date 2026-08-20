@@ -29,7 +29,7 @@ from app.students.registration import (
     get_student_registration_status,
 )
 from app.ai.enrollment import FaceEnrollmentManager
-from app.ai.providers import ImageFrameProvider, VideoFrameProvider, CameraFrameProvider
+from app.ai.providers import CameraFrameProvider
 
 
 @pytest.fixture

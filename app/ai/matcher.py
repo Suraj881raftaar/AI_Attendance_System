@@ -10,8 +10,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 
-from app.config import FACE_MATCH_THRESHOLD, MODEL_IDENTIFIER
-from app.database import get_db_connection, list_students
+from app.config import FACE_MATCH_THRESHOLD
+from app.database import get_db_connection
 from app.ai.embedder import SFaceRecognizer
 
 logger = logging.getLogger(__name__)

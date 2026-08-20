@@ -10,7 +10,6 @@ from typing import Any, Dict, List, Optional, Union
 from app.database import (
     create_student,
     get_student_by_id,
-    get_student_by_student_id,
     list_students,
     search_students,
     update_student,

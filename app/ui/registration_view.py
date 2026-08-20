@@ -5,8 +5,7 @@ provider selection, re-registration confirmation, and de-registration controls.
 """
 
 import logging
-from typing import Callable, Optional, List, Dict, Any
-import cv2
+from typing import Callable, Optional, List
 import numpy as np
 
 try:

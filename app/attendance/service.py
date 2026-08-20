@@ -8,7 +8,6 @@ from datetime import datetime, date
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
-import cv2
 import numpy as np
 
 from app.config import FACE_MATCH_THRESHOLD
@@ -19,7 +18,6 @@ from app.database import (
     create_attendance,
     check_duplicate_attendance,
     get_attendance_by_date,
-    list_recent_attendance,
 )
 from app.ai.pipeline import AIRecognitionPipeline
 

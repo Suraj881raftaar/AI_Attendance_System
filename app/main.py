@@ -4,7 +4,6 @@ Application entry point module for AI-Enabled Smart Attendance System.
 
 import sys
 import os
-from pathlib import Path
 
 from app.config import (
     APP_NAME,

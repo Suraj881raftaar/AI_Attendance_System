@@ -4,7 +4,7 @@ Enforces backend RBAC authorization, computes live summary metrics from SQLite d
 and retrieves formatted recent attendance activity logs.
 """
 
-from datetime import date, datetime
+from datetime import date
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union

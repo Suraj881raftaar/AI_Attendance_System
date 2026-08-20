@@ -11,7 +11,6 @@ import cv2
 import numpy as np
 
 from app.config import FACE_DETECTION_MODEL_PATH
-from app.ai.config import check_models_exist
 
 logger = logging.getLogger(__name__)
 

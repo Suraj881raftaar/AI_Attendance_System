@@ -13,7 +13,6 @@ from app.auth import get_session
 from app.database import (
     get_student_by_id,
     get_face_data_by_student,
-    create_or_update_face_data,
     deactivate_face_data,
 )
 from app.ai.enrollment import FaceEnrollmentManager

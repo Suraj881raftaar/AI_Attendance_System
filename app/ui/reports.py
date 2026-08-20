@@ -10,7 +10,7 @@ from typing import Optional, List, Dict, Any, Callable
 
 try:
     import customtkinter as ctk
-    from tkinter import filedialog, messagebox
+    from tkinter import filedialog
     HAS_GUI = True
 except ImportError:
     HAS_GUI = False

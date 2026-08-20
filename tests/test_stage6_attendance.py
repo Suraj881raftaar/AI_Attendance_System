@@ -7,11 +7,10 @@ camera fallback, image/video providers, and summary statistics.
 USES SYNTHETIC TEST FIXTURES ONLY. ZERO REAL BIOMETRIC DATA COMMITTED.
 """
 
-from datetime import date, datetime, timedelta
+from datetime import date
 import json
 import tempfile
 from pathlib import Path
-import cv2
 import numpy as np
 import pytest
 
@@ -31,7 +30,7 @@ from app.attendance.service import (
     record_manual_attendance,
 )
 from app.ai.pipeline import AIRecognitionPipeline
-from app.ai.providers import ImageFrameProvider, VideoFrameProvider, CameraFrameProvider
+from app.ai.providers import CameraFrameProvider
 
 
 @pytest.fixture

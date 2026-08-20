@@ -5,7 +5,7 @@ Uses OpenCV DNN FaceRecognizerSF to extract 128D facial feature vectors and comp
 
 import logging
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 import cv2
 import numpy as np
 

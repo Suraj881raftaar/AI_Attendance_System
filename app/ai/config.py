@@ -5,16 +5,12 @@ Handles model path validation and status reporting without performing any networ
 
 import logging
 from enum import Enum
-from pathlib import Path
+from enum import Enum
 from typing import Dict, Tuple
 
 from app.config import (
     FACE_DETECTION_MODEL_PATH,
     FACE_RECOGNITION_MODEL_PATH,
-    FACE_MATCH_THRESHOLD,
-    MODEL_IDENTIFIER,
-    EMBEDDING_DIMENSION,
-    MIN_FACE_SIZE,
 )
 
 logger = logging.getLogger(__name__)

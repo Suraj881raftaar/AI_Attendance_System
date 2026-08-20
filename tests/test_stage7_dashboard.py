@@ -5,7 +5,7 @@ present-today count, absent calculation, attendance percentage (with zero-studen
 empty table handling, recent activity ordering, and database consistency.
 """
 
-from datetime import date, datetime
+from datetime import date
 import tempfile
 from pathlib import Path
 import pytest

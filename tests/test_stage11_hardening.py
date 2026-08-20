@@ -5,8 +5,7 @@ recognition threshold rules (>= 0.363 recognized vs < 0.363 unknown), 10s cooldo
 duplicate database protection, CSV/Excel export safety, and database transaction rollbacks.
 """
 
-import csv
-from datetime import date, datetime
+from datetime import date
 import tempfile
 from pathlib import Path
 import numpy as np
@@ -17,41 +16,19 @@ from app.config import FACE_MATCH_THRESHOLD
 from app.database import (
     initialize_database,
     create_student,
-    get_student_by_id,
-    update_student,
     deactivate_student,
-    create_user,
-    get_user_by_username,
     create_attendance,
-    check_duplicate_attendance,
-    update_attendance_record,
     create_or_update_face_data,
     get_db_connection,
 )
 from app.auth import login, get_session, setup_first_admin
 from app.ai.matcher import FaceMatcher
-from app.ai.pipeline import AIRecognitionPipeline
-from app.students import (
-    add_student,
-    update_student_details,
-    deactivate_student_record,
-    register_student_face,
-    deregister_student_face,
-)
-from app.attendance import process_recognition_frame, get_today_attendance_summary
 from app.dashboard import get_dashboard_metrics
 from app.reports import (
     search_attendance_records,
     get_student_attendance_summary,
-    correct_attendance_record,
     export_attendance_csv,
     export_attendance_excel,
-)
-from app.analytics import (
-    get_daily_attendance_trend,
-    get_status_distribution,
-    get_monthly_attendance_trend,
-    get_student_performance_distribution,
 )
 
 
