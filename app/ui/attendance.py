@@ -144,6 +144,15 @@ class AttendanceViewFrame(ctk.CTkFrame):
         )
         self.cam_mode_btn.pack(fill="x", padx=10, pady=4)
 
+        self.mobile_mode_btn = ctk.CTkButton(
+            prov_frame,
+            text="Mobile Camera (TEST)",
+            fg_color="purple",
+            hover_color="darkpurple",
+            command=self._start_mobile_mode,
+        )
+        self.mobile_mode_btn.pack(fill="x", padx=10, pady=4)
+
         self.stop_btn = ctk.CTkButton(
             prov_frame,
             text="Stop Stream",
@@ -265,6 +274,31 @@ class AttendanceViewFrame(ctk.CTkFrame):
 
         self.current_provider = cam
         self._start_stream_thread()
+
+    def _start_mobile_mode(self):
+        from customtkinter import CTkInputDialog
+        from app.ai.providers import MobileCameraFrameProvider
+
+        dialog = CTkInputDialog(
+            text="Enter Mobile Phone Camera Stream URL:\n(e.g. http://192.168.1.100:8080/video)",
+            title="Mobile Camera (TEST)",
+        )
+        stream_url = dialog.get_input()
+        if not stream_url:
+            return
+
+        self.stop_stream()
+        try:
+            mob = MobileCameraFrameProvider(stream_url=stream_url)
+            if not mob.is_available:
+                self.log_activity(f"Mobile Camera Error: Unreachable or invalid stream URL ({stream_url}).")
+                mob.release()
+                return
+
+            self.current_provider = mob
+            self._start_stream_thread()
+        except Exception as e:
+            self.log_activity(f"Mobile Camera Stream Exception: {e}")
 
     def _start_stream_thread(self):
         self.is_streaming = True
