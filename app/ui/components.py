@@ -87,20 +87,24 @@ class ConfirmationDialog(ctk.CTkToplevel):
         ).pack(side="right", padx=5, expand=True)
 
     def _handle_confirm(self):
-        if self.on_confirm:
+        cb = self.on_confirm
+        if self.winfo_exists():
+            self.destroy()
+        if cb:
             try:
-                self.on_confirm()
+                cb()
             except Exception as e:
                 logger.error(f"Error during confirmation callback: {e}")
-        self.destroy()
 
     def _handle_cancel(self):
-        if self.on_cancel:
+        cb = self.on_cancel
+        if self.winfo_exists():
+            self.destroy()
+        if cb:
             try:
-                self.on_cancel()
+                cb()
             except Exception as e:
                 logger.error(f"Error during cancellation callback: {e}")
-        self.destroy()
 
 
 class EmptyStateWidget(ctk.CTkFrame):

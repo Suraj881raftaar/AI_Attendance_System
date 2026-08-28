@@ -162,8 +162,9 @@ class LoginWindow(ctk.CTk):
         self.login_frame = LoginFrame(self, on_login_success=self._handle_success)
 
     def _handle_success(self, user_info=None):
-        if self.on_login_success:
-            self.on_login_success(user_info)
+        cb = self.on_login_success
         if self.winfo_exists():
             self.destroy()
+        if cb:
+            cb(user_info)
 

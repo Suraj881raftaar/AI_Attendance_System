@@ -226,6 +226,8 @@ class MainWindow(ctk.CTk):
         session = get_session()
         session.clear_session()
 
-        if self.on_logout_callback:
-            self.on_logout_callback()
-        self.destroy()
+        cb = self.on_logout_callback
+        if self.winfo_exists():
+            self.destroy()
+        if cb:
+            cb()
