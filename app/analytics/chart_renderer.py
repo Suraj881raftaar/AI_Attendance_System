@@ -1,11 +1,11 @@
-"""
-Lightweight Matplotlib / Tkinter Canvas Chart Renderer for AI-Enabled Smart Attendance System.
-Provides 100% offline, CPU-first chart rendering for CustomTkinter view components.
-Ensures memory safety by cleanly closing Matplotlib figures and destroying old canvas widgets on refresh.
-"""
+from __future__ import annotations
 
 import logging
-from typing import Dict, Any, Tuple, Optional
+from typing import Dict, Any, Tuple, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 try:
     import matplotlib
@@ -14,14 +14,16 @@ try:
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
     HAS_MATPLOTLIB = True
-except ImportError:
+except Exception:
     HAS_MATPLOTLIB = False
 
 logger = logging.getLogger(__name__)
 
 
-def create_daily_trend_figure(trend_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Figure, Any]:
+def create_daily_trend_figure(trend_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Optional[Any], Optional[Any]]:
     """Create a Matplotlib figure for Daily Attendance Trend (Present vs Absent)."""
+    if not HAS_MATPLOTLIB:
+        return None, None
     fig = Figure(figsize=figsize, dpi=100)
     fig.patch.set_facecolor("#2B2B2B")
 
@@ -51,8 +53,10 @@ def create_daily_trend_figure(trend_data: Dict[str, Any], figsize: Tuple[float, 
     return fig, ax
 
 
-def create_status_distribution_figure(dist_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Figure, Any]:
+def create_status_distribution_figure(dist_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Optional[Any], Optional[Any]]:
     """Create a Matplotlib figure for Status Proportions Distribution (Donut Chart)."""
+    if not HAS_MATPLOTLIB:
+        return None, None
     fig = Figure(figsize=figsize, dpi=100)
     fig.patch.set_facecolor("#2B2B2B")
 
@@ -98,8 +102,10 @@ def create_status_distribution_figure(dist_data: Dict[str, Any], figsize: Tuple[
     return fig, ax
 
 
-def create_monthly_trend_figure(monthly_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Figure, Any]:
+def create_monthly_trend_figure(monthly_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Optional[Any], Optional[Any]]:
     """Create a Matplotlib figure for Monthly Attendance Trend (% Rate)."""
+    if not HAS_MATPLOTLIB:
+        return None, None
     fig = Figure(figsize=figsize, dpi=100)
     fig.patch.set_facecolor("#2B2B2B")
 
@@ -138,8 +144,10 @@ def create_monthly_trend_figure(monthly_data: Dict[str, Any], figsize: Tuple[flo
     return fig, ax
 
 
-def create_student_performance_figure(perf_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Figure, Any]:
+def create_student_performance_figure(perf_data: Dict[str, Any], figsize: Tuple[float, float] = (5.0, 3.0)) -> Tuple[Optional[Any], Optional[Any]]:
     """Create a Matplotlib figure for Student Performance Categories (Bar Chart)."""
+    if not HAS_MATPLOTLIB:
+        return None, None
     fig = Figure(figsize=figsize, dpi=100)
     fig.patch.set_facecolor("#2B2B2B")
 
@@ -179,16 +187,21 @@ def create_student_performance_figure(perf_data: Dict[str, Any], figsize: Tuple[
     return fig, ax
 
 
-def embed_figure_in_tkinter(parent_widget, fig: Figure) -> FigureCanvasTkAgg:
+def embed_figure_in_tkinter(parent_widget: Any, fig: Any) -> Optional[Any]:
     """Embed a Matplotlib figure inside a Tkinter/CustomTkinter parent widget cleanly."""
+    if not HAS_MATPLOTLIB or fig is None:
+        return None
     canvas = FigureCanvasTkAgg(fig, master=parent_widget)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)
     return canvas
 
 
-def cleanup_figure_canvas(canvas: Optional[FigureCanvasTkAgg], fig: Optional[Figure]):
+def cleanup_figure_canvas(canvas: Optional[Any], fig: Optional[Any]) -> None:
     """Cleanly destroy Tkinter canvas widget and close Matplotlib figure to prevent memory leaks."""
+    if not HAS_MATPLOTLIB:
+        return
+
     if canvas is not None:
         try:
             canvas.get_tk_widget().destroy()
