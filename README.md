@@ -81,17 +81,17 @@ python main.py
 ## 📊 Staged Implementation Plan Status
 
 - [x] **STAGE 0 — Project Initialization** (Foundation & Architecture set up)
-- [ ] **STAGE 1 — Database & Core Foundation**
-- [ ] **STAGE 2 — Authentication**
-- [ ] **STAGE 3 — Student Management UI**
-- [ ] **STAGE 4 — AI Model Integration**
-- [ ] **STAGE 5 — Face Registration**
-- [ ] **STAGE 6 — AI Attendance Engine**
-- [ ] **STAGE 7 — Dashboard**
-- [ ] **STAGE 8 — Attendance Management & Reports**
-- [ ] **STAGE 9 — Charts & Analytics**
-- [ ] **STAGE 10 — UI/UX Polish**
-- [ ] **STAGE 11 — Testing & Hardening**
-- [ ] **STAGE 12 — Packaging**
-- [ ] **STAGE 13 — Documentation**
-- [ ] **STAGE 14 — Viva Preparation**
+- [x] **STAGE 1 — Database & Core Foundation**
+- [x] **STAGE 2 — Authentication**
+- [x] **STAGE 3 — Student Management UI**
+- [x] **STAGE 4 — AI Model Integration**
+- [x] **STAGE 5 — Face Registration**
+- [x] **STAGE 6 — AI Attendance Engine**
+- [x] **STAGE 7 — Dashboard**
+- [x] **STAGE 8 — Attendance Management & Reports**
+- [x] **STAGE 9 — Charts & Analytics**
+- [x] **STAGE 10 — UI/UX Polish**
+- [x] **STAGE 11 — Testing & Hardening**
+- [x] **STAGE 12 — Packaging**
+- [x] **STAGE 13 — Documentation**
+- [x] **STAGE 14 — Viva Preparation**
