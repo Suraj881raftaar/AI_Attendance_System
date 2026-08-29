@@ -72,9 +72,9 @@ class MainWindow(ctk.CTk):
 
         # User session metadata
         session = get_session()
-        user_info = session.get_current_user() if session.is_logged_in() else {}
+        user_info = session.get_current_user() or {}
         username = user_info.get("username", "Guest")
-        role = user_info.get("role", "teacher").upper()
+        role = str(user_info.get("role", "teacher")).upper()
 
         # Role Badge Color
         role_color = "#3498DB" if role == "ADMIN" else "#2ECC71"
